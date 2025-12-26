@@ -1,19 +1,19 @@
-let express = require('express')
-let bodyParser = require('body-parser')
- 
+// src/app.js
+const express = require('express')
+const cors = require('cors')
 const app = express()
- 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
- 
-// เรียกใช้ routes.js โดยส่ง app เข้าไป
+
+// Middleware (ใช้ express.json() แทน body-parser)
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+
+// เรียกใช้ Routes
 require('./routes')(app)
- 
-// ไม่ต้องมี route อื่นแล้วตาม Lab5
- 
-let port = 8081
- 
+
+// Start Server
+const port = process.env.PORT || 8081
 app.listen(port, function () {
-    console.log('server running on ' + port)
+    console.log('CoffeeShop Server running on port ' + port)
 })
- 
+
